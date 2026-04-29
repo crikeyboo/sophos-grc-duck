@@ -1,0 +1,224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Crikeyboo/SOPHOS-GRC-Duck/schemas/framework-control.schema.json",
+  "title": "Framework Control",
+  "description": "Schema for describing a cybersecurity framework control, outcome, safeguard or requirement.",
+  "type": "object",
+  "required": [
+    "control_id",
+    "framework",
+    "control_reference",
+    "control_title",
+    "control_text",
+    "control_objective",
+    "review"
+  ],
+  "properties": {
+    "control_id": {
+      "type": "string",
+      "description": "Internal unique identifier for the control record.",
+      "examples": [
+        "CTRL-NIST-CSF-2-DE.CM-01",
+        "CTRL-CIS-V8-08-16",
+        "CTRL-ISO27001-2022-A.8.15",
+        "CTRL-NCSC-CAF-V4-B3.A"
+      ]
+    },
+    "framework": {
+      "type": "object",
+      "required": [
+        "framework_name",
+        "framework_version"
+      ],
+      "properties": {
+        "framework_name": {
+          "type": "string",
+          "enum": [
+            "NIST CSF",
+            "CIS Controls",
+            "ISO/IEC 27001",
+            "NCSC CAF",
+            "SCF",
+            "Other"
+          ]
+        },
+        "framework_version": {
+          "type": "string",
+          "examples": [
+            "2.0",
+            "v8",
+            "2022",
+            "v4",
+            "2026.1.1"
+          ]
+        },
+        "framework_publisher": {
+          "type": "string",
+          "examples": [
+            "NIST",
+            "Center for Internet Security",
+            "ISO/IEC",
+            "NCSC",
+            "Secure Controls Framework"
+          ]
+        }
+      }
+    },
+    "control_reference": {
+      "type": "string",
+      "description": "Official framework reference.",
+      "examples": [
+        "DE.CM-01",
+        "CIS Control 8.16",
+        "A.8.15",
+        "B3.a"
+      ]
+    },
+    "control_title": {
+      "type": "string",
+      "description": "Official or normalised title for the control."
+    },
+    "control_text": {
+      "type": "string",
+      "description": "Official control wording, outcome wording, safeguard text or summarised requirement."
+    },
+    "control_objective": {
+      "type": "string",
+      "description": "Plain English summary of what the control is intended to achieve."
+    },
+    "control_domain": {
+      "type": "string",
+      "description": "Framework function, category, principle, domain or theme.",
+      "examples": [
+        "Detect",
+        "Continuous Monitoring",
+        "Logging",
+        "Protective Monitoring",
+        "Govern"
+      ]
+    },
+    "control_type": {
+      "type": "string",
+      "enum": [
+        "Governance",
+        "Technical",
+        "Operational",
+        "Legal or Regulatory",
+        "Assurance",
+        "Process",
+        "People",
+        "Physical",
+        "Other"
+      ]
+    },
+    "implementation_guidance": {
+      "type": "string",
+      "description": "Implementation guidance or interpretation notes where available and permitted."
+    },
+    "assessment_expectations": {
+      "type": "array",
+      "description": "Evidence, assessment or audit expectations associated with the control.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "customer_responsibility_examples": {
+      "type": "array",
+      "description": "Examples of responsibilities normally retained by the customer when implementing this control.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mapping_notes": {
+      "type": "string",
+      "description": "Notes to guide capability-to-control mapping."
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "source_title": {
+          "type": "string"
+        },
+        "source_url_or_path": {
+          "type": "string"
+        },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "Official Framework Publication",
+            "Official Download",
+            "Official Webpage",
+            "Licensed Standard",
+            "Internal Reference",
+            "Derived Mapping",
+            "Other"
+          ]
+        },
+        "publication_or_update_date": {
+          "type": "string"
+        },
+        "licence_or_usage_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "related_controls": {
+      "type": "array",
+      "description": "Related control identifiers from the same or other frameworks.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "framework_name": {
+            "type": "string"
+          },
+          "framework_version": {
+            "type": "string"
+          },
+          "control_reference": {
+            "type": "string"
+          },
+          "relationship_type": {
+            "type": "string",
+            "enum": [
+              "Equivalent",
+              "Similar",
+              "Broader",
+              "Narrower",
+              "Supports",
+              "Supported By",
+              "Crosswalk",
+              "Other"
+            ]
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "created_by",
+        "created_date",
+        "last_reviewed_by",
+        "last_reviewed_date"
+      ],
+      "properties": {
+        "created_by": {
+          "type": "string"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "last_reviewed_by": {
+          "type": "string"
+        },
+        "last_reviewed_date": {
+          "type": "string"
+        },
+        "review_notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
