@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Crikeyboo/SOPHOS-GRC-Duck/schemas/control-mapping.schema.json",
+  "title": "Control Mapping",
+  "description": "Schema for mapping Sophos product and service capabilities to cybersecurity framework controls or outcomes.",
+  "type": "object",
+  "required": [
+    "mapping_id",
+    "mapping_status",
+    "product",
+    "capability",
+    "framework",
+    "control",
+    "coverage",
+    "evidence",
+    "confidence",
+    "customer_responsibility",
+    "sophos_responsibility",
+    "review"
+  ],
+  "properties": {
+    "mapping_id": {
+      "type": "string",
+      "description": "Unique identifier for this mapping.",
+      "examples": [
+        "MAP-SOPHOS-XDR-NIST-CSF-DE.CM-001"
+      ]
+    },
+    "mapping_status": {
+      "type": "string",
+      "description": "Lifecycle status of the mapping.",
+      "enum": [
+        "Draft",
+        "AI Suggested",
+        "Needs Evidence",
+        "Product Owner Review",
+        "GRC Review",
+        "Approved",
+        "Rejected",
+        "Retired"
+      ]
+    },
+    "product": {
+      "type": "object",
+      "required": [
+        "product_name"
+      ],
+      "properties": {
+        "product_name": {
+          "type": "string",
+          "examples": [
+            "Sophos XDR",
+            "Sophos MDR",
+            "Sophos Endpoint",
+            "Sophos Firewall"
+          ]
+        },
+        "product_module": {
+          "type": "string",
+          "examples": [
+            "Threat Detection",
+            "Endpoint Protection",
+            "Firewall Policy",
+            "Managed Detection and Response"
+          ]
+        },
+        "product_version": {
+          "type": "string",
+          "description": "Product, service or documentation version where relevant."
+        }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "required": [
+        "capability_name",
+        "capability_statement",
+        "capability_domain"
+      ],
+      "properties": {
+        "capability_name": {
+          "type": "string",
+          "examples": [
+            "Security telemetry correlation",
+            "Endpoint malware prevention",
+            "Network access control"
+          ]
+        },
+        "capability_statement": {
+          "type": "string",
+          "description": "Normalised statement of what the Sophos product or service capability does."
+        },
+        "capability_domain": {
+          "type": "string",
+          "enum": [
+            "Identity and Access",
+            "Endpoint Protection",
+            "Network Security",
+            "Email Security",
+            "Cloud Security",
+            "Data Protection",
+            "Logging and Telemetry",
+            "Threat Detection",
+            "Threat Intelligence",
+            "Incident Response",
+            "Vulnerability and Exposure Management",
+            "Configuration and Hardening",
+            "Asset Visibility",
+            "Policy Enforcement",
+            "Reporting and Assurance",
+            "Managed Service Support",
+            "Other"
+          ]
+        }
+      }
+    },
+    "framework": {
+      "type": "object",
+      "required": [
+        "framework_name",
+        "framework_version"
+      ],
+      "properties": {
+        "framework_name": {
+          "type": "string",
+          "enum": [
+            "NIST CSF",
+            "CIS Controls",
+            "ISO/IEC 27001",
+            "NCSC CAF",
+            "SCF",
+            "Other"
+          ]
+        },
+        "framework_version": {
+          "type": "string",
+          "examples": [
+            "2.0",
+            "v8",
+            "2022",
+            "v4",
+            "2026.1.1"
+          ]
+        }
+      }
+    },
+    "control": {
+      "type": "object",
+      "required": [
+        "control_id",
+        "control_title",
+        "control_text"
+      ],
+      "properties": {
+        "control_id": {
+          "type": "string",
+          "examples": [
+            "DE.CM-01",
+            "CIS 8.16",
+            "A.8.15",
+            "B3.a"
+          ]
+        },
+        "control_title": {
+          "type": "string"
+        },
+        "control_text": {
+          "type": "string",
+          "description": "Control wording, outcome wording, or summarised requirement text."
+        },
+        "control_objective": {
+          "type": "string",
+          "description": "Plain English summary of what the control is trying to achieve."
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "coverage_type",
+        "coverage_rationale"
+      ],
+      "properties": {
+        "coverage_type": {
+          "type": "string",
+          "enum": [
+            "Direct",
+            "Partial",
+            "Enabling",
+            "Compensating",
+            "Requires Customer Configuration",
+            "Requires Service or Process",
+            "Not Covered"
+          ]
+        },
+        "coverage_rationale": {
+          "type": "string",
+          "description": "Explanation of why this coverage type has been selected."
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "caveats": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "description": "Evidence items supporting the mapping.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "evidence_title",
+          "evidence_source_type",
+          "evidence_location",
+          "evidence_quality_level"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "examples": [
+              "EV-SOPHOS-XDR-DOC-001"
+            ]
+          },
+          "evidence_title": {
+            "type": "string"
+          },
+          "evidence_source_type": {
+            "type": "string",
+            "enum": [
+              "Public Product Documentation",
+              "Internal Product Documentation",
+              "Git Repository",
+              "Detection Rule or Query",
+              "API Specification",
+              "Configuration Guide",
+              "Architecture Diagram",
+              "Service Runbook",
+              "Support Knowledge Base",
+              "Product Owner Confirmation",
+              "GRC Reviewer Confirmation",
+              "Customer Implementation Evidence",
+              "Sales or Marketing Material",
+              "Other"
+            ]
+          },
+          "evidence_location": {
+            "type": "string",
+            "description": "URL, repository path, document path or citation location."
+          },
+          "publication_or_update_date": {
+            "type": "string",
+            "description": "Date of publication or last update, if known."
+          },
+          "evidence_extract": {
+            "type": "string",
+            "description": "Short extracted statement supporting the capability or mapping."
+          },
+          "evidence_quality_level": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5,
+            "description": "0 = no evidence, 5 = authoritative technical evidence."
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "object",
+      "required": [
+        "confidence_score",
+        "confidence_rationale"
+      ],
+      "properties": {
+        "confidence_score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "0 = no confidence, 5 = high confidence."
+        },
+        "confidence_rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "customer_responsibility": {
+      "type": "array",
+      "description": "Activities, decisions or controls that remain the customer's responsibility.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sophos_responsibility": {
+      "type": "array",
+      "description": "Sophos product, service or managed service responsibilities relevant to the mapping.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "residual_gap": {
+      "type": "object",
+      "properties": {
+        "gap_exists": {
+          "type": "boolean"
+        },
+        "gap_description": {
+          "type": "string"
+        },
+        "recommended_action": {
+          "type": "string"
+        }
+      }
+    },
+    "recommended_narrative": {
+      "type": "string",
+      "description": "Reusable wording for proposals, RFP responses, GRC reports or customer assurance narratives."
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "created_by",
+        "created_date",
+        "last_reviewed_by",
+        "last_reviewed_date"
+      ],
+      "properties": {
+        "created_by": {
+          "type": "string"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "last_reviewed_by": {
+          "type": "string"
+        },
+        "last_reviewed_date": {
+          "type": "string"
+        },
+        "review_notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
