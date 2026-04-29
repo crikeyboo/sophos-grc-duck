@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Crikeyboo/SOPHOS-GRC-Duck/schemas/evidence-source.schema.json",
+  "title": "Evidence Source",
+  "description": "Schema for recording evidence used to support Sophos product capability and framework control mappings.",
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "evidence_status",
+    "evidence_title",
+    "evidence_source_type",
+    "evidence_location",
+    "evidence_quality_level",
+    "review"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "description": "Unique identifier for the evidence source.",
+      "examples": [
+        "EV-SOPHOS-XDR-DOC-001",
+        "EV-SCF-2026-001",
+        "EV-NIST-CSF-2-001"
+      ]
+    },
+    "evidence_status": {
+      "type": "string",
+      "description": "Lifecycle status of the evidence source.",
+      "enum": [
+        "Draft",
+        "Discovered",
+        "Needs Review",
+        "Approved",
+        "Rejected",
+        "Stale",
+        "Retired"
+      ]
+    },
+    "evidence_title": {
+      "type": "string",
+      "description": "Title or short name of the evidence source."
+    },
+    "evidence_source_type": {
+      "type": "string",
+      "enum": [
+        "Public Product Documentation",
+        "Internal Product Documentation",
+        "Git Repository",
+        "Detection Rule or Query",
+        "API Specification",
+        "Configuration Guide",
+        "Architecture Diagram",
+        "Service Runbook",
+        "Support Knowledge Base",
+        "Product Owner Confirmation",
+        "GRC Reviewer Confirmation",
+        "Customer Implementation Evidence",
+        "Official Framework Publication",
+        "Official Framework Download",
+        "Licensed Standard",
+        "Sales or Marketing Material",
+        "Other"
+      ]
+    },
+    "evidence_location": {
+      "type": "string",
+      "description": "URL, repository path, document path, citation location, or internal system reference."
+    },
+    "source_owner": {
+      "type": "string",
+      "description": "Person, team, function or organisation responsible for the source."
+    },
+    "publication_or_update_date": {
+      "type": "string",
+      "description": "Date of publication or last update, where known."
+    },
+    "retrieval_date": {
+      "type": "string",
+      "description": "Date the evidence was retrieved or added to the evidence store."
+    },
+    "product_or_service": {
+      "type": "string",
+      "description": "Relevant Sophos product or service, where applicable."
+    },
+    "framework": {
+      "type": "string",
+      "description": "Relevant framework, where applicable."
+    },
+    "evidence_extract": {
+      "type": "string",
+      "description": "Short extract or summary of the evidence relied upon."
+    },
+    "evidence_quality_level": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "0 = no evidence, 5 = authoritative technical evidence."
+    },
+    "evidence_quality_rationale": {
+      "type": "string",
+      "description": "Reason for the assigned evidence quality level."
+    },
+    "usage_permissions": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": [
+            "Public",
+            "Internal",
+            "Confidential",
+            "Restricted",
+            "Customer Confidential",
+            "Unknown"
+          ]
+        },
+        "can_use_for_internal_mapping": {
+          "type": "boolean"
+        },
+        "can_use_in_customer_outputs": {
+          "type": "boolean"
+        },
+        "can_quote": {
+          "type": "boolean"
+        },
+        "usage_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "staleness": {
+      "type": "object",
+      "properties": {
+        "staleness_status": {
+          "type": "string",
+          "enum": [
+            "Current",
+            "Possibly Stale",
+            "Stale",
+            "Unknown"
+          ]
+        },
+        "review_frequency": {
+          "type": "string",
+          "examples": [
+            "Quarterly",
+            "Biannually",
+            "Annually",
+            "On product release",
+            "On framework update"
+          ]
+        },
+        "next_review_due": {
+          "type": "string"
+        }
+      }
+    },
+    "related_items": {
+      "type": "object",
+      "properties": {
+        "related_capability_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "related_control_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "related_mapping_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "created_by",
+        "created_date",
+        "last_reviewed_by",
+        "last_reviewed_date"
+      ],
+      "properties": {
+        "created_by": {
+          "type": "string"
+        },
+        "created_date": {
+          "type": "string"
+        },
+        "last_reviewed_by": {
+          "type": "string"
+        },
+        "last_reviewed_date": {
+          "type": "string"
+        },
+        "review_notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
